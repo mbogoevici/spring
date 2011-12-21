@@ -15,13 +15,21 @@
  * limitations under the License.
  */
 
-package org.jboss.seam.spring.test.injection;
+package org.jboss.seam.spring.test.listener;
 
 import static org.jboss.seam.spring.test.utils.Dependencies.dependencies;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.spring.context.SpringContext;
+import org.jboss.seam.spring.test.injection.ComplicatedBean;
+import org.jboss.seam.spring.test.injection.ComplicatedBeanUnvetoed;
+import org.jboss.seam.spring.test.injection.SimpleBean;
+import org.jboss.seam.spring.test.injection.SimpleBeanUnvetoed;
+import org.jboss.seam.spring.test.injection.SpringBeanProducer;
+import org.jboss.seam.spring.test.injection.SpringBeanProducerUnvetoed;
+import org.jboss.seam.spring.test.injection.SpringInjected;
+import org.jboss.seam.spring.test.injection.SpringInjectedUnvetoed;
 import org.jboss.seam.spring.utils.Locations;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -36,22 +44,25 @@ import org.springframework.context.ApplicationContext;
  * @author: Marius Bogoevici
  */
 @RunWith(Arquillian.class)
-public class SpringBootstrapByExtensionTest {
+public class CdiLoaderListenerTest {
 
     @Deployment
     public static Archive<?> deployment() {
         return ShrinkWrap.create(WebArchive.class, "test.war")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsLibraries(dependencies())
+                .addAsWebInfResource("org/jboss/seam/spring/test/common/cdiLoaderListener-web.xml", "web.xml")
+                .addAsWebInfResource("org/jboss/seam/spring/test/config/webinf/cdiLoaderListener-servletContext.xml")
                 .addAsResource("org/jboss/seam/spring/test/bootstrap/applicationContextUnvetoed.xml")
                 .addAsResource("org/jboss/seam/spring/test/bootstrap/metainf/org.jboss.seam.spring.contexts", Locations.SEAM_SPRING_CONTEXTS_LOCATION)
-                .addClasses(SimpleBeanUnvetoed.class, ComplicatedBeanUnvetoed.class, SpringInjectedUnvetoed.class, SpringBeanProducerUnvetoed.class);
+                .addClasses(SimpleBeanUnvetoed.class, ComplicatedBeanUnvetoed.class, SpringInjectedUnvetoed.class, SpringBeanProducerUnvetoed.class, WebContextProducer.class);
     }
 
 
     @Test
     public void testContextExists(@SpringContext ApplicationContext applicationContext) {
         Assert.assertNotNull(applicationContext);
+        Assert.assertNotNull(applicationContext.getBean("simpleBean"));
     }
 
     @Test
@@ -62,6 +73,11 @@ public class SpringBootstrapByExtensionTest {
         Assert.assertNotNull(springInjected.complicatedBean);
         Assert.assertNotNull(springInjected.complicatedBean.simpleBean);
         Assert.assertEquals(springInjected.complicatedBean.simpleBean.getMessage(), "Hello");
+    }
+
+    @Test
+    public void testWebContextFindsBeans(@SpringContext(name = "web") ApplicationContext webApplicationContext) {
+        Assert.assertNotNull(webApplicationContext.getBean("simpleBean"));
     }
 
 }

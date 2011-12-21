@@ -14,21 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.jboss.seam.spring.test.listener;
 
-package org.jboss.seam.spring.test.injection;
-
-import javax.inject.Inject;
+import org.jboss.seam.spring.test.injection.SimpleBean;
 
 /**
- * @author: Marius Bogoevici
+ * @author Marius Bogoevici
  */
-public class SpringInjected {
+public class ServletSpringBean {
 
-    @Inject
-    public
-    SimpleBean simpleBean;
+    private SimpleBean simpleBean;
 
-    @Inject
-    public
-    ComplicatedBean complicatedBean;
+    public void setSimpleBean(SimpleBean simpleBean) {
+        this.simpleBean = simpleBean;
+    }
 }

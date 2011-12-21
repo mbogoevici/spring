@@ -49,6 +49,7 @@ class SpringContextProducer implements Producer {
 
     @Override
     public void dispose(Object instance) {
+
         if (this.producedLocally && instance instanceof ConfigurableApplicationContext) {
             ((ConfigurableApplicationContext) instance).close();
         }

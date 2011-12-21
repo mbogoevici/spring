@@ -19,16 +19,12 @@ package org.jboss.seam.spring.test.injection;
 
 import javax.inject.Inject;
 
+
 /**
  * @author: Marius Bogoevici
  */
-public class SpringInjected {
+public class ComplicatedBeanUnvetoed {
 
     @Inject
-    public
-    SimpleBean simpleBean;
-
-    @Inject
-    public
-    ComplicatedBean complicatedBean;
+    public SimpleBeanUnvetoed simpleBean;
 }

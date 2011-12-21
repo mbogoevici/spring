@@ -27,5 +27,6 @@ import javax.inject.Inject;
 @Veto
 public class ComplicatedBean {
 
-    @Inject SimpleBean simpleBean;
+    @Inject
+    public SimpleBean simpleBean;
 }

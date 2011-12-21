@@ -22,13 +22,13 @@ import javax.inject.Inject;
 /**
  * @author: Marius Bogoevici
  */
-public class SpringInjected {
+public class SpringInjectedUnvetoed {
 
     @Inject
     public
-    SimpleBean simpleBean;
+    SimpleBeanUnvetoed simpleBean;
 
     @Inject
     public
-    ComplicatedBean complicatedBean;
+    ComplicatedBeanUnvetoed complicatedBean;
 }

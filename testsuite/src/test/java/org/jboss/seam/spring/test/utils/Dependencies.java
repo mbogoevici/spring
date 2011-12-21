@@ -53,6 +53,7 @@ public class Dependencies {
                     .artifact("org.springframework:spring-context:" + SPRING_VERSION)
                     .artifact("org.springframework:spring-core:" + SPRING_VERSION)
                     .artifact("org.springframework:spring-web:" + SPRING_VERSION)
+                    .artifact("org.springframework:spring-webmvc:" + SPRING_VERSION)
                     .artifact("org.springframework:spring-tx:" + SPRING_VERSION)
                     .artifact("org.jboss.solder:solder-api" + ":" + SOLDER_VERSION)
                     .artifact("org.jboss.solder:solder-impl" + ":" + SOLDER_VERSION)

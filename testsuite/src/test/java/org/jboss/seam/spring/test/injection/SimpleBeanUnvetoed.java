@@ -17,18 +17,18 @@
 
 package org.jboss.seam.spring.test.injection;
 
-import javax.inject.Inject;
-
 /**
  * @author: Marius Bogoevici
  */
-public class SpringInjected {
+public class SimpleBeanUnvetoed {
 
-    @Inject
-    public
-    SimpleBean simpleBean;
+    private String message;
 
-    @Inject
-    public
-    ComplicatedBean complicatedBean;
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 }

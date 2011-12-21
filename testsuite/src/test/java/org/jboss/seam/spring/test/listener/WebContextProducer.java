@@ -14,21 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.jboss.seam.spring.test.listener;
 
-package org.jboss.seam.spring.test.injection;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
 
-import javax.inject.Inject;
+import org.jboss.seam.spring.context.SpringContext;
+import org.jboss.seam.spring.context.Web;
+import org.springframework.context.ApplicationContext;
 
 /**
- * @author: Marius Bogoevici
+ * @author Marius Bogoevici
  */
-public class SpringInjected {
-
-    @Inject
-    public
-    SimpleBean simpleBean;
-
-    @Inject
-    public
-    ComplicatedBean complicatedBean;
+public class WebContextProducer {
+    @Produces
+    @ApplicationScoped
+    @SpringContext(name = "web")
+    @Web
+    ApplicationContext context;
 }

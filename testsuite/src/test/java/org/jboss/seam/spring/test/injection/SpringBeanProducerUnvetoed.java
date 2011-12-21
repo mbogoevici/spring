@@ -17,18 +17,16 @@
 
 package org.jboss.seam.spring.test.injection;
 
-import javax.inject.Inject;
+import javax.enterprise.inject.Produces;
+
+import org.jboss.seam.spring.inject.SpringBean;
 
 /**
  * @author: Marius Bogoevici
  */
-public class SpringInjected {
+public class SpringBeanProducerUnvetoed {
 
-    @Inject
-    public
-    SimpleBean simpleBean;
+    @Produces @SpringBean(fromContext = "default") SimpleBeanUnvetoed simpleBean;
 
-    @Inject
-    public
-    ComplicatedBean complicatedBean;
+    @Produces @SpringBean ComplicatedBeanUnvetoed complicatedBean;
 }
